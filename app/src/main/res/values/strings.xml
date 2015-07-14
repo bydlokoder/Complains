@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Жалобы</string>
+
+    <string name="action_settings">Настройки</string>
+    <string name="action_search">Поиск</string>
+    
+    <string name="defective_goods">Некачественный товар</string>
+</resources>
