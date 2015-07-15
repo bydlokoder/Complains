@@ -16,13 +16,16 @@
     <string name="title_action_replace">Замена</string>
 
     <!-- Name of the agreement type. -->
-    <string name="title_purchase_agreement">Договор купли-продажи</string>
+    <string name="title_purchase_agreement">Договор купли-продажи товаров</string>
 
     <!-- Name of the law problems. -->
-    <string name="title_unsuitable_good">Неподходящий товар</string>
+    <string name="title_unsuitable_good">Покупка неподходящего товара надлежащего качества</string>
 
     <!-- Links for help information -->
     <string name="link_consultant">http://consultant.ru</string>
+    <string name="link_purchase_agreement">http://azbuka.consultant.ru/prava-potrebiteley/vozvrat-obmen-ustranenie-nedostatkov/</string>
+    <string name="link_unsuitable_good">http://azbuka.consultant.ru/prava-potrebiteley/vozvrat-obmen-ustranenie-nedostatkov/7450/</string>
+    <string name="link_return_unsuitable_good">http://azbuka.consultant.ru/cons_doc_PBI_200225/</string>
 
 
     <string name="hello_world">Hello world!</string>

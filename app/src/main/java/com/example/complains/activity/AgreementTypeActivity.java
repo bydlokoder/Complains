@@ -28,13 +28,13 @@ public class AgreementTypeActivity extends AppCompatActivity {
         recList.setLayoutManager(llm);
         List<AgreementType> typelist = new ArrayList<>();
 
-        Action action = new Action(getString(R.string.title_action_return), getString(R.string.link_consultant), "1.doc");
+        Action action = new Action(getString(R.string.title_action_return), getString(R.string.link_return_unsuitable_good), "1.doc");
         List<Action> actionList = new ArrayList<>();
         actionList.add(action);
-        Problem problem = new Problem(getString(R.string.title_unsuitable_good), getString(R.string.link_consultant), actionList);
+        Problem problem = new Problem(getString(R.string.title_unsuitable_good), getString(R.string.link_unsuitable_good), actionList);
         List<Problem> problemList = new ArrayList<>();
         problemList.add(problem);
-        typelist.add(new AgreementType(getString(R.string.title_purchase_agreement), getString(R.string.link_consultant), problemList));
+        typelist.add(new AgreementType(getString(R.string.title_purchase_agreement), getString(R.string.link_purchase_agreement), problemList));
         AgreementTypeAdapter adapter = new AgreementTypeAdapter(typelist, this);
         recList.setAdapter(adapter);
     }
