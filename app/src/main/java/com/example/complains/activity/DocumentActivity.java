@@ -14,7 +14,7 @@ public class DocumentActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.document_activity);
+        setContentView(R.layout.activity_document);
         try {
             WordDocument wordDocument = new WordDocument(getAssets().open("1.doc"));
             List<PlaceHolder> placeHolderList = wordDocument.getPlaceHolderList();

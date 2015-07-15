@@ -11,8 +11,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingLeft="@dimen/list_item_padding_left"
-        android:paddingStart="@dimen/list_item_padding_left">
+        android:paddingLeft="@dimen/list_item_padding"
+        android:paddingStart="@dimen/list_item_padding">
 
         <TextView
             android:id="@+id/name"
@@ -26,7 +26,7 @@
             android:layout_toRightOf="@id/icon"
             android:text="Магнит"
             android:textColor="@color/primary_text"
-            android:textSize="18sp" />
+            android:textSize="@dimen/primary_text_size" />
 
         <TextView
             android:id="@+id/complainType"
@@ -40,12 +40,13 @@
             android:layout_toEndOf="@id/icon"
             android:layout_toRightOf="@id/icon"
             android:text="Некачественный товар"
+            android:textSize="@dimen/secondary_text_size"
             android:textColor="@color/secondary_text" />
 
         <ImageView
             android:id="@+id/icon"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="@dimen/icon_size"
+            android:layout_height="@dimen/icon_size"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"

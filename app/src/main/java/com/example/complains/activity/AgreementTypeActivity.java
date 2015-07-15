@@ -1,6 +1,5 @@
 package com.example.complains.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,51 +8,41 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.complains.R;
-import com.example.complains.utils.Complain;
-import com.example.complains.utils.adapters.ComplainAdapter;
-import com.example.complains.utils.SimpleDividerItemDecoration;
+import com.example.complains.utils.adapters.AgreementTypeAdapter;
+import com.example.complains.utils.categories.Action;
+import com.example.complains.utils.categories.AgreementType;
+import com.example.complains.utils.categories.Problem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
-
-public class MainActivity extends AppCompatActivity {
-
+public class AgreementTypeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-        List<Complain> complains = new ArrayList<>();
-        Complain complain = new Complain("Магнит", "Некачественный товар");
-        Complain complain2 = new Complain("Пятерочка", "Некачественный товар");
-        for (int i = 0; i < 15; i++) {
-            complains.add(complain);
-            complains.add(complain2);
-        }
-        ComplainAdapter adapter = new ComplainAdapter(complains, this);
+        setContentView(R.layout.activity_agreement_type);
         RecyclerView recList = (RecyclerView) findViewById(R.id.recyclerView);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
-        recList.setAdapter(adapter);
-        recList.addItemDecoration(new SimpleDividerItemDecoration(this));
-    }
+        List<AgreementType> typelist = new ArrayList<>();
 
-    @OnClick(R.id.fab)
-    public void addComplain() {
-        Intent intent = new Intent(MainActivity.this, AgreementTypeActivity.class);
-        startActivity(intent);
+        Action action = new Action(getString(R.string.title_action_return), getString(R.string.link_consultant), "1.doc");
+        List<Action> actionList = new ArrayList<>();
+        actionList.add(action);
+        Problem problem = new Problem(getString(R.string.title_unsuitable_good), getString(R.string.link_consultant), actionList);
+        List<Problem> problemList = new ArrayList<>();
+        problemList.add(problem);
+        typelist.add(new AgreementType(getString(R.string.title_purchase_agreement), getString(R.string.link_consultant), problemList));
+        AgreementTypeAdapter adapter = new AgreementTypeAdapter(typelist, this);
+        recList.setAdapter(adapter);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_agreement_type, menu);
         return true;
     }
 
@@ -65,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_search) {
+        if (id == R.id.action_settings) {
             return true;
         }
 

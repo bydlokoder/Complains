@@ -1,4 +1,4 @@
-package com.example.complains.utils;
+package com.example.complains.utils.adapters;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.complains.R;
 import com.example.complains.activity.DocumentActivity;
+import com.example.complains.utils.Complain;
 
 import java.util.List;
 
@@ -28,7 +29,7 @@ public class ComplainAdapter extends RecyclerView.Adapter<ComplainAdapter.ViewHo
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_item, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.complain_list_item, viewGroup, false);
         return new ViewHolder(v);
     }
 
