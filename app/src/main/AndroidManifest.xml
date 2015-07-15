@@ -11,7 +11,8 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.MainActivity"
-            android:label="@string/title_activity_main">
+            android:label="@string/title_activity_main"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,13 +22,34 @@
         <activity android:name=".activity.DocumentActivity" />
         <activity
             android:name=".activity.AgreementTypeActivity"
-            android:label="@string/title_activity_agreement_type"></activity>
+            android:label="@string/title_activity_agreement_type"
+            android:launchMode="singleTop"
+            android:parentActivityName=".activity.MainActivity">
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.complains.activity.MainActivity" />
+        </activity>
         <activity
             android:name=".activity.ProblemActivity"
-            android:label="@string/title_activity_problem"></activity>
+            android:label="@string/title_activity_problem"
+            android:launchMode="singleTop"
+            android:parentActivityName=".activity.AgreementTypeActivity">
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.complains.activity.AgreementTypeActivity" />
+        </activity>
         <activity
             android:name=".activity.ActionActivity"
-            android:label="@string/title_activity_action" />
+            android:label="@string/title_activity_action"
+            android:launchMode="singleTop"
+            android:parentActivityName=".activity.ProblemActivity">
+            <!-- Parent activity meta-data to support 4.0 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.complains.activity.ProblemActivity" />
+        </activity>
     </application>
 
 </manifest>
