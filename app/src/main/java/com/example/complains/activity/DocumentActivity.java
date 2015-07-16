@@ -5,8 +5,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
@@ -21,7 +19,7 @@ import com.example.complains.utils.categories.Action;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -30,7 +28,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 // TODO save input of the EditText for restoring after screen orientation changed
-public class DocumentActivity extends AppCompatActivity {
+public class DocumentActivity extends AppCompatActivity implements View.OnClickListener {
     public static final String DOCUMENT_KEY = "DOCUMENT";
     private static final String PLACEHOLDERS_KEY = "PLACEHOLDERS";
     private Action action;
@@ -43,6 +41,7 @@ public class DocumentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_document);
         ButterKnife.bind(this);
+
         ViewGroup layout = (ViewGroup) findViewById(R.id.formLayout);
         if (savedInstanceState != null) {
             action = (Action) savedInstanceState.getSerializable(DOCUMENT_KEY);
@@ -64,6 +63,12 @@ public class DocumentActivity extends AppCompatActivity {
                         , Snackbar.LENGTH_LONG).show();
             }
         }
+//        PlaceholderAdapter placeholderAdapter = new PlaceholderAdapter(placeHolderList, this);
+//        RecyclerView recList = (RecyclerView) findViewById(R.id.recyclerView);
+//        LinearLayoutManager llm = new LinearLayoutManager(this);
+//        llm.setOrientation(LinearLayoutManager.VERTICAL);
+//        recList.setLayoutManager(llm);
+//        recList.setAdapter(new PlaceholderAdapter(placeHolderList, this));
         buildForms(layout, placeHolderList, this);
     }
 
@@ -71,8 +76,15 @@ public class DocumentActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putSerializable(DOCUMENT_KEY, action);
+        // save input values
+        for (int i = 0; i < editTextList.size(); i++) {
+            PlaceHolder placeHolder = placeHolderList.get(i);
+            EditText editText = editTextList.get(i);
+            placeHolder.setAnswer(editText.getText().toString());
+        }
         outState.putSerializable(PLACEHOLDERS_KEY, (Serializable) placeHolderList);
     }
+
 
     private void buildForms(ViewGroup layout, List<PlaceHolder> placeHolderList, Context context) {
         for (PlaceHolder placeHolder : placeHolderList) {
@@ -80,6 +92,8 @@ public class DocumentActivity extends AppCompatActivity {
             if (view != null) {
                 layout.addView(view, new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT
                         , ViewGroup.LayoutParams.WRAP_CONTENT));
+            } else {
+                placeHolderList.remove(placeHolder);
             }
         }
 
@@ -89,57 +103,23 @@ public class DocumentActivity extends AppCompatActivity {
         View view = View.inflate(context, R.layout.placheloder_text, null);
         final EditText editText = (EditText) view.findViewById(R.id.answer);
         editTextList.add(editText);
-        editText.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                placeHolder.setAnswer(s.toString());
-            }
-        });
         TextView textView = (TextView) view.findViewById(R.id.question);
         textView.setText(placeHolder.getQuestion());
+        if (placeHolder.getAnswer() != null && !placeHolder.getAnswer().isEmpty()) {
+            editText.setText(placeHolder.getAnswer());
+        }
         switch (placeHolder.getFormType()) {
             case DATE:
-                editText.setFocusable(false);
-                editText.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        final Calendar myCalendar = Calendar.getInstance();
-                        DatePickerDialog dialog = buildDatePickerDialog(context, myCalendar, editText);
-                        dialog.show();
-                    }
-                });
+                editText.setFocusable(false); // keyboard won't be shown
+                editText.setOnClickListener(this); // start datePicker
                 return view;
             case TEXT:
+                placeHolder.getAnswer();
                 return view;
         }
         return null;
     }
 
-    private DatePickerDialog buildDatePickerDialog(Context context, final Calendar myCalendar
-            , final EditText editText) {
-        return new DatePickerDialog(context, new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                myCalendar.set(Calendar.YEAR, year);
-                myCalendar.set(Calendar.MONTH, monthOfYear);
-                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                String myFormat = "dd.MM.yyyy";
-                SimpleDateFormat sdf = new SimpleDateFormat(myFormat);
-                editText.setError(null);// clear error field
-                editText.setText(sdf.format(myCalendar.getTime()));
-            }
-        }, myCalendar
-                .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                myCalendar.get(Calendar.DAY_OF_MONTH));
-    }
 
     @OnClick(R.id.createComplain)
     public void createComplain() {
@@ -167,5 +147,27 @@ public class DocumentActivity extends AppCompatActivity {
         }
         return isValid;
     }
+
+    @Override
+    public void onClick(View view) {
+        if (view instanceof EditText) {
+            final EditText editText = (EditText) view;
+            final Calendar myCalendar = Calendar.getInstance();
+            DatePickerDialog dialog = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                    myCalendar.set(Calendar.YEAR, year);
+                    myCalendar.set(Calendar.MONTH, monthOfYear);
+                    myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                    DateFormat df = DateFormat.getDateInstance();
+                    editText.setError(null);// clear error field
+                    editText.setText(df.format(myCalendar.getTime()));
+                }
+            }, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH)
+                    , myCalendar.get(Calendar.DAY_OF_MONTH));
+            dialog.show();
+        }
+    }
+
 
 }

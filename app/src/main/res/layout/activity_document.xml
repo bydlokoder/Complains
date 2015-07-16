@@ -14,18 +14,16 @@
         android:text="@string/createComplain"
         android:textColor="@color/text" />
 
+
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/createComplain"
-        android:isScrollContainer="false" >
+        android:layout_above="@id/createComplain">
 
         <LinearLayout
             android:id="@+id/formLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+            android:orientation="vertical" />
     </ScrollView>
 </RelativeLayout>
