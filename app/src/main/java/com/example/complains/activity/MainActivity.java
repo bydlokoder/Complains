@@ -11,7 +11,6 @@ import android.view.MenuItem;
 import com.example.complains.R;
 import com.example.complains.utils.Complain;
 import com.example.complains.utils.adapters.ComplainAdapter;
-import com.example.complains.utils.SimpleDividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
         recList.setAdapter(adapter);
-        recList.addItemDecoration(new SimpleDividerItemDecoration(this));
     }
 
     @OnClick(R.id.fab)

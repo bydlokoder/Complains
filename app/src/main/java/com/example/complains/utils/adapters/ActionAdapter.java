@@ -3,6 +3,7 @@ package com.example.complains.utils.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +13,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.complains.R;
-import com.example.complains.activity.MainActivity;
+import com.example.complains.activity.DocumentActivity;
 import com.example.complains.utils.categories.Action;
 
 import java.util.List;
@@ -56,9 +57,12 @@ public class ActionAdapter extends RecyclerView.Adapter<ActionAdapter.ViewHolder
             layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, MainActivity.class);
+                    Intent intent = new Intent(context, DocumentActivity.class);
+                    Bundle b = new Bundle();
                     Action action = actionList.get(getAdapterPosition());
-                    // TODO start activity with forms
+                    b.putSerializable(DocumentActivity.DOCUMENT_KEY, action);
+                    intent.putExtras(b);
+                    context.startActivity(intent);
                 }
             });
             help.setOnClickListener(new View.OnClickListener() {

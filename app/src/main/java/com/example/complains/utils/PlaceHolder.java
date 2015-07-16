@@ -1,8 +1,8 @@
 package com.example.complains.utils;
 
-import android.support.annotation.NonNull;
+import java.io.Serializable;
 
-public class PlaceHolder implements Comparable<PlaceHolder> {
+public class PlaceHolder implements Serializable {
     private int order;
     private FormType formType;
     private String question;
@@ -15,11 +15,6 @@ public class PlaceHolder implements Comparable<PlaceHolder> {
         this.question = question;
         this.answer = answer;
         this.initialMarking = initialMarking;
-    }
-
-    @Override
-    public int compareTo(@NonNull PlaceHolder placeHolder) {
-        return Integer.valueOf(order).compareTo(placeHolder.order);
     }
 
     public int getOrder() {
@@ -40,5 +35,9 @@ public class PlaceHolder implements Comparable<PlaceHolder> {
 
     public String getInitialMarking() {
         return initialMarking;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
     }
 }

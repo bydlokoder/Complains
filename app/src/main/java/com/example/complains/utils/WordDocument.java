@@ -13,7 +13,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -45,14 +47,16 @@ public class WordDocument {
         }
     }
 
-    public void replaceAllStrings(List<Replacement> replacements) {
-        for (Replacement replacement : replacements) {
-            replaceText(replacement.getOldValue(), replacement.getNewValue());
+    public void replaceAllStrings(List<PlaceHolder> placeHolderList) {
+        for (PlaceHolder placeHolder : placeHolderList) {
+            if (placeHolder.getAnswer() != null) {
+                replaceText(placeHolder.getInitialMarking(), placeHolder.getAnswer());
+            }
         }
     }
 
     public List<String> getAllMatches(String regex) throws IOException {
-        List<String> matches = new ArrayList<>();
+        Set<String> matches = new LinkedHashSet<>();
         Range r1 = document.getRange();
         for (int i = 0; i < r1.numSections(); ++i) {
             Section s = r1.getSection(i);
@@ -65,10 +69,10 @@ public class WordDocument {
                 }
             }
         }
-        return matches;
+        return new ArrayList<>(matches);
     }
 
-    /* Checks if external storage is available for read and write */
+    /* Checks if external storage is available for write */
     private boolean isExternalStorageWritable() {
         String state = Environment.getExternalStorageState();
         if (Environment.MEDIA_MOUNTED.equals(state)) {
@@ -96,10 +100,11 @@ public class WordDocument {
         for (int i = 0; i < 2; i++) {
             if (m.find()) {
                 String row = m.group(1);
+                row = row.substring(1, row.length() - 1).trim(); // delete brackets
                 if (i == 0) {
-                    type = getFormType(row.trim());
+                    type = getFormType(row);
                 } else {
-                    question = row.substring(1, row.length() - 1).trim();
+                    question = row;
                 }
             }
         }

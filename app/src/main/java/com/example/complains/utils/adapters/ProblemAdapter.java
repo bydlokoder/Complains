@@ -31,7 +31,6 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.ViewHold
         this.context = context;
     }
 
-
     @Override
     public ProblemAdapter.ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.agreement_type_list_item, viewGroup, false);
@@ -44,7 +43,6 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.ViewHold
         holder.name.setText(problem.getName());
     }
 
-
     @Override
     public int getItemCount() {
         return problemList.size();
@@ -54,7 +52,6 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.ViewHold
     public Filter getFilter() {
         return null;
     }
-
 
     class ViewHolder extends RecyclerView.ViewHolder {
         private TextView name;
