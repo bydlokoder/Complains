@@ -10,8 +10,11 @@ import android.view.MenuItem;
 
 import com.example.complains.R;
 import com.example.complains.utils.Complain;
+import com.example.complains.utils.PlaceHolder;
 import com.example.complains.utils.adapters.ComplainAdapter;
+import com.example.complains.utils.categories.Action;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,20 +23,26 @@ import butterknife.OnClick;
 
 
 public class MainActivity extends AppCompatActivity {
-
+    private static final String COMPLAINS_KEY = "COMPLAINS";
+    private List<Complain> complains = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-        List<Complain> complains = new ArrayList<>();
-        Complain complain = new Complain("Магнит", "Некачественный товар");
-        Complain complain2 = new Complain("Пятерочка", "Некачественный товар");
-        for (int i = 0; i < 15; i++) {
-            complains.add(complain);
-            complains.add(complain2);
+        if (savedInstanceState != null) {
+            complains = (List<Complain>) savedInstanceState.getSerializable(COMPLAINS_KEY);
+        } else {
+            for (int i = 0; i < 10; i++) {
+                Action action = new Action(getString(R.string.title_action_return),
+                        getString(R.string.link_return_unsuitable_good),
+                        "1_RETURN.doc");
+                Complain complain = new Complain("ОАО КОМПАНИЯ", action, new ArrayList<PlaceHolder>());
+                complains.add(complain);
+            }
         }
+
         ComplainAdapter adapter = new ComplainAdapter(complains, this);
         RecyclerView recList = (RecyclerView) findViewById(R.id.recyclerView);
         LinearLayoutManager llm = new LinearLayoutManager(this);
@@ -46,6 +55,12 @@ public class MainActivity extends AppCompatActivity {
     public void addComplain() {
         Intent intent = new Intent(MainActivity.this, AgreementTypeActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(COMPLAINS_KEY, (Serializable) complains);
     }
 
     @Override

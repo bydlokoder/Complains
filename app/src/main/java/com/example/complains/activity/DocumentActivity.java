@@ -2,7 +2,10 @@ package com.example.complains.activity;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,6 +15,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.complains.R;
+import com.example.complains.utils.Complain;
 import com.example.complains.utils.PlaceHolder;
 import com.example.complains.utils.WordDocument;
 import com.example.complains.utils.categories.Action;
@@ -63,12 +67,6 @@ public class DocumentActivity extends AppCompatActivity implements View.OnClickL
                         , Snackbar.LENGTH_LONG).show();
             }
         }
-//        PlaceholderAdapter placeholderAdapter = new PlaceholderAdapter(placeHolderList, this);
-//        RecyclerView recList = (RecyclerView) findViewById(R.id.recyclerView);
-//        LinearLayoutManager llm = new LinearLayoutManager(this);
-//        llm.setOrientation(LinearLayoutManager.VERTICAL);
-//        recList.setLayoutManager(llm);
-//        recList.setAdapter(new PlaceholderAdapter(placeHolderList, this));
         buildForms(layout, placeHolderList, this);
     }
 
@@ -77,14 +75,17 @@ public class DocumentActivity extends AppCompatActivity implements View.OnClickL
         super.onSaveInstanceState(outState);
         outState.putSerializable(DOCUMENT_KEY, action);
         // save input values
+        updatePlaceholders();
+        outState.putSerializable(PLACEHOLDERS_KEY, (Serializable) placeHolderList);
+    }
+
+    private void updatePlaceholders() {
         for (int i = 0; i < editTextList.size(); i++) {
             PlaceHolder placeHolder = placeHolderList.get(i);
             EditText editText = editTextList.get(i);
             placeHolder.setAnswer(editText.getText().toString());
         }
-        outState.putSerializable(PLACEHOLDERS_KEY, (Serializable) placeHolderList);
     }
-
 
     private void buildForms(ViewGroup layout, List<PlaceHolder> placeHolderList, Context context) {
         for (PlaceHolder placeHolder : placeHolderList) {
@@ -124,16 +125,39 @@ public class DocumentActivity extends AppCompatActivity implements View.OnClickL
     @OnClick(R.id.createComplain)
     public void createComplain() {
         if (isDataValid()) {
+            Complain complain = new Complain("Some name", action, placeHolderList);
             try {
+                //TODO save in db
+                updatePlaceholders();
                 InputStream inputStream = getAssets().open(action.getDocFileName());
                 wordDocument = new WordDocument(inputStream);
                 wordDocument.replaceAllStrings(placeHolderList);
-                wordDocument.saveWord("test2.doc");
+                final Uri uri = wordDocument.saveWord(Environment.getExternalStorageDirectory(), "test2.doc");
                 inputStream.close();
+                Snackbar.make(findViewById(android.R.id.content), getString(R.string.notification_document_created)
+                        , Snackbar.LENGTH_LONG).setDuration(Snackbar.LENGTH_LONG)
+                        .setAction("Открыть", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                showChooserDialog(uri);
+                            }
+                        }).show();
+
             } catch (IOException e) {
                 Snackbar.make(findViewById(android.R.id.content), getString(R.string.error_loading_doc)
                         , Snackbar.LENGTH_LONG).show();
             }
+        }
+    }
+
+    private void showChooserDialog(Uri uri) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(uri, "application/msword");
+
+        Intent chooser = Intent.createChooser(intent, getString(R.string.title_chooser_doc));
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(chooser);
         }
     }
 

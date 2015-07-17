@@ -1,5 +1,6 @@
 package com.example.complains.utils;
 
+import android.net.Uri;
 import android.os.Environment;
 
 import org.apache.poi.hwpf.HWPFDocument;
@@ -33,18 +34,21 @@ public class WordDocument {
         r1.replaceText(findText, replaceText);
     }
 
-    public void saveWord(String fileName) throws IOException {
+    public Uri saveWord(File dir, String fileName) throws IOException {
         if (isExternalStorageWritable()) {
             FileOutputStream out = null;
             try {
-                out = new FileOutputStream(new File(Environment.getExternalStorageDirectory(), fileName));
+                File f = new File(dir, fileName);
+                out = new FileOutputStream(f);
                 document.write(out);
+                return Uri.fromFile(f);
             } finally {
                 if (out != null) {
                     out.close();
                 }
             }
         }
+        return null;
     }
 
     public void replaceAllStrings(List<PlaceHolder> placeHolderList) {

@@ -15,12 +15,12 @@
             android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
             android:name=".activity.DocumentActivity"
+            android:label="@string/title_activity_document"
             android:windowSoftInputMode="adjustPan|adjustResize" />
         <activity
             android:name=".activity.AgreementTypeActivity"

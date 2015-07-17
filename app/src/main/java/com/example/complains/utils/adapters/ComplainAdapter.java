@@ -2,6 +2,7 @@ package com.example.complains.utils.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,7 +38,7 @@ public class ComplainAdapter extends RecyclerView.Adapter<ComplainAdapter.ViewHo
     public void onBindViewHolder(ViewHolder holder, int position) {
         Complain complain = complains.get(position);
         holder.name.setText(complain.getName());
-        holder.compainName.setText(complain.getType());
+        holder.compainName.setText(complain.getAction().getName());
     }
 
     @Override
@@ -66,7 +67,11 @@ public class ComplainAdapter extends RecyclerView.Adapter<ComplainAdapter.ViewHo
 
         @Override
         public void onClick(View view) {
-            context.startActivity(new Intent(context, DocumentActivity.class));
+            Bundle b = new Bundle();
+            b.putSerializable(DocumentActivity.DOCUMENT_KEY, complains.get(getAdapterPosition()).getAction());
+            Intent intent = new Intent(context, DocumentActivity.class);
+            intent.putExtras(b);
+            context.startActivity(intent);
         }
     }
 }
