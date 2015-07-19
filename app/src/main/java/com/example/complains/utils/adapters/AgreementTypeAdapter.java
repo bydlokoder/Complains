@@ -1,9 +1,10 @@
 package com.example.complains.utils.adapters;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,25 +16,28 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.complains.R;
-import com.example.complains.activity.ProblemActivity;
+import com.example.complains.fragments.ProblemFragment;
 import com.example.complains.utils.categories.AgreementType;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class AgreementTypeAdapter extends RecyclerView.Adapter<AgreementTypeAdapter.ViewHolder>
         implements Filterable {
     private List<AgreementType> agreementTypes;
     private Context context;
+    private FragmentManager manager;
 
-    public AgreementTypeAdapter(List<AgreementType> agreementTypes, Context context) {
+    public AgreementTypeAdapter(List<AgreementType> agreementTypes, Context context,
+                                FragmentManager manager) {
         this.agreementTypes = agreementTypes;
         this.context = context;
+        this.manager = manager;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.agreement_type_list_item, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext())
+                .inflate(R.layout.agreement_type_list_item, viewGroup, false);
         return new ViewHolder(v);
     }
 
@@ -68,12 +72,12 @@ public class AgreementTypeAdapter extends RecyclerView.Adapter<AgreementTypeAdap
                 @Override
                 public void onClick(View v) {
                     AgreementType type = agreementTypes.get(getAdapterPosition());
-
-                    Intent intent = new Intent(context, ProblemActivity.class);
-                    Bundle b = new Bundle();
-                    b.putSerializable(ProblemActivity.PROBLEMS_KEY, (Serializable) type.getProblemList());
-                    intent.putExtras(b);
-                    context.startActivity(intent);
+                    FragmentTransaction ft = manager.beginTransaction();
+                    ft.replace(R.id.fragment_container,
+                            ProblemFragment.newInstance(type.getProblemList(),
+                                    context.getString(R.string.title_activity_problem)));
+                    ft.addToBackStack(null);
+                    ft.commit();
                 }
             });
             help.setOnClickListener(new View.OnClickListener() {

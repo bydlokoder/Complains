@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -13,11 +14,14 @@ import com.example.complains.utils.Complain;
 import com.example.complains.utils.PlaceHolder;
 import com.example.complains.utils.adapters.ComplainAdapter;
 import com.example.complains.utils.categories.Action;
+import com.mikepenz.materialdrawer.Drawer;
+import com.mikepenz.materialdrawer.DrawerBuilder;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -25,12 +29,18 @@ import butterknife.OnClick;
 public class MainActivity extends AppCompatActivity {
     private static final String COMPLAINS_KEY = "COMPLAINS";
     private List<Complain> complains = new ArrayList<>();
+    private Drawer drawer = null;
+
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+        setSupportActionBar(toolbar);
+        setUpNavigationDrawer();
         if (savedInstanceState != null) {
             complains = (List<Complain>) savedInstanceState.getSerializable(COMPLAINS_KEY);
         } else {
@@ -53,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.fab)
     public void addComplain() {
-        Intent intent = new Intent(MainActivity.this, AgreementTypeActivity.class);
+        Intent intent = new Intent(MainActivity.this, CategoryActivity.class);
         startActivity(intent);
     }
 
@@ -72,16 +82,19 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_search) {
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void setUpNavigationDrawer() {
+        this.drawer = new DrawerBuilder()
+                .withActivity(this)
+                .withToolbar(toolbar)
+                .build();
     }
 }

@@ -22,38 +22,8 @@
             android:name=".activity.DocumentActivity"
             android:label="@string/title_activity_document"
             android:windowSoftInputMode="adjustPan|adjustResize" />
-        <activity
-            android:name=".activity.AgreementTypeActivity"
-            android:label="@string/title_activity_agreement_type"
-            android:launchMode="singleTop"
-            android:parentActivityName=".activity.MainActivity">
+        <activity android:name=".activity.CategoryActivity">
 
-            <!-- Parent activity meta-data to support 4.0 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.complains.activity.MainActivity" />
-        </activity>
-        <activity
-            android:name=".activity.ProblemActivity"
-            android:label="@string/title_activity_problem"
-            android:launchMode="singleTop"
-            android:parentActivityName=".activity.AgreementTypeActivity">
-
-            <!-- Parent activity meta-data to support 4.0 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.complains.activity.AgreementTypeActivity" />
-        </activity>
-        <activity
-            android:name=".activity.ActionActivity"
-            android:label="@string/title_activity_action"
-            android:launchMode="singleTop"
-            android:parentActivityName=".activity.ProblemActivity">
-
-            <!-- Parent activity meta-data to support 4.0 and lower -->
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.complains.activity.ProblemActivity" />
         </activity>
     </application>
 

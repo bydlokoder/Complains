@@ -1,9 +1,10 @@
 package com.example.complains.utils.adapters;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,20 +16,21 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.complains.R;
-import com.example.complains.activity.ActionActivity;
+import com.example.complains.fragments.ActionFragment;
 import com.example.complains.utils.categories.Problem;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.ViewHolder>
         implements Filterable {
     private List<Problem> problemList;
     private Context context;
+    private FragmentManager manager;
 
-    public ProblemAdapter(List<Problem> problemList, Context context) {
+    public ProblemAdapter(List<Problem> problemList, Context context, FragmentManager manager) {
         this.problemList = problemList;
         this.context = context;
+        this.manager = manager;
     }
 
     @Override
@@ -65,12 +67,13 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.ViewHold
             layout.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(context, ActionActivity.class);
                     Problem problem = problemList.get(getAdapterPosition());
-                    Bundle b = new Bundle();
-                    b.putSerializable(ActionActivity.ACTION_KEY, (Serializable) problem.getActionList());
-                    intent.putExtras(b);
-                    context.startActivity(intent);
+                    FragmentTransaction ft = manager.beginTransaction();
+                    ft.replace(R.id.fragment_container,
+                            ActionFragment.newInstance(problem.getActionList(),
+                                    context.getString(R.string.title_activity_problem)));
+                    ft.addToBackStack(null);
+                    ft.commit();
                 }
             });
             help.setOnClickListener(new View.OnClickListener() {
