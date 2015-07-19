@@ -71,7 +71,7 @@ public class ProblemAdapter extends RecyclerView.Adapter<ProblemAdapter.ViewHold
                     FragmentTransaction ft = manager.beginTransaction();
                     ft.replace(R.id.fragment_container,
                             ActionFragment.newInstance(problem.getActionList(),
-                                    context.getString(R.string.title_activity_problem)));
+                                    context.getString(R.string.title_activity_action)));
                     ft.addToBackStack(null);
                     ft.commit();
                 }
