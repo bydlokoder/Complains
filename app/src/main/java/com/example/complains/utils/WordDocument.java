@@ -3,6 +3,9 @@ package com.example.complains.utils;
 import android.net.Uri;
 import android.os.Environment;
 
+import com.example.complains.utils.entities.FormType;
+import com.example.complains.utils.entities.PlaceHolder;
+
 import org.apache.poi.hwpf.HWPFDocument;
 import org.apache.poi.hwpf.usermodel.Paragraph;
 import org.apache.poi.hwpf.usermodel.Range;

@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.example.complains.R;
 import com.example.complains.activity.DocumentActivity;
-import com.example.complains.utils.Complain;
+import com.example.complains.utils.entities.Complain;
 
 import java.util.List;
 

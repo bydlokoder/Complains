@@ -16,18 +16,29 @@
     <!-- Name of the law actions -->
     <string name="title_action_return">Возврат</string>
     <string name="title_action_replace">Замена</string>
+    <string name="title_action_new_deadline">Установить новый срок исполнения</string>
 
     <!-- Name of the agreement type. -->
     <string name="title_purchase_agreement">Договор купли-продажи товаров</string>
+    <string name="title_services">Договор о выполнении работ (оказании услуг)</string>
 
     <!-- Name of the law problems. -->
     <string name="title_unsuitable_good">Покупка неподходящего товара надлежащего качества</string>
+    <string name="title_expired_services">Нарушение сроков выполнения работ (оказания услуг)</string>
+
 
     <!-- Links for help information -->
     <string name="link_consultant">http://consultant.ru</string>
     <string name="link_purchase_agreement">http://azbuka.consultant.ru/prava-potrebiteley/vozvrat-obmen-ustranenie-nedostatkov/</string>
     <string name="link_unsuitable_good">http://azbuka.consultant.ru/prava-potrebiteley/vozvrat-obmen-ustranenie-nedostatkov/7450/</string>
     <string name="link_return_unsuitable_good">http://azbuka.consultant.ru/cons_doc_PBI_200225/</string>
+    <string name="link_services">http://azbuka.consultant.ru/prava-potrebiteley/otnosheniya-prodavca-i-pokupatelya/</string>
+    <string name="link_expired">http://azbuka.consultant.ru/cons_doc_PBI_200289/</string>
+    <string name="link_new_deadline">http://azbuka.consultant.ru/cons_doc_PBI_200359/</string>
+
+
+    <string name="link_main_law">http://www.consultant.ru/popular/consumerism/</string>
+    <string name="link_azbuka_main">http://azbuka.consultant.ru/prava-potrebiteley/</string>
 
 
     <string name="hello_world">Hello world!</string>

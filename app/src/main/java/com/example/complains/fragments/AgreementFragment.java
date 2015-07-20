@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import com.example.complains.R;
 import com.example.complains.activity.CategoryActivity;
 import com.example.complains.utils.adapters.AgreementTypeAdapter;
-import com.example.complains.utils.categories.AgreementType;
+import com.example.complains.utils.entities.AgreementType;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -36,7 +36,9 @@ public class AgreementFragment extends Fragment {
         AgreementTypeAdapter adapter = new AgreementTypeAdapter(typeList, getActivity(),
                 getFragmentManager());
         recList.setAdapter(adapter);
+        setTitle();
         return view;
+
     }
 
     public static AgreementFragment newInstance(List<AgreementType> typelist, String title) {
@@ -46,5 +48,12 @@ public class AgreementFragment extends Fragment {
         b.putSerializable(CategoryActivity.KEY_TITLE, title);
         agreementFragment.setArguments(b);
         return agreementFragment;
+    }
+
+    private void setTitle() {
+        String title = getArguments().getString(CategoryActivity.KEY_TITLE);
+        if (title != null) {
+            getActivity().setTitle(title);
+        }
     }
 }

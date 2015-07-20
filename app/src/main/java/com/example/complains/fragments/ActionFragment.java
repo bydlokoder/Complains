@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import com.example.complains.R;
 import com.example.complains.activity.CategoryActivity;
 import com.example.complains.utils.adapters.ActionAdapter;
-import com.example.complains.utils.categories.Action;
+import com.example.complains.utils.entities.Action;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -28,11 +28,12 @@ public class ActionFragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_agreement_type, container, false);
         Bundle args = getArguments();
         actionList = (List<Action>) args.getSerializable(ACTION_KEY);
-        RecyclerView recList = (RecyclerView)view.findViewById(R.id.recyclerView);
+        RecyclerView recList = (RecyclerView) view.findViewById(R.id.recyclerView);
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
         recList.setAdapter(new ActionAdapter(actionList, getActivity()));
+        setTitle();
         return view;
     }
 
@@ -43,5 +44,12 @@ public class ActionFragment extends Fragment {
         args.putSerializable(CategoryActivity.KEY_TITLE, title);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    private void setTitle() {
+        String title = getArguments().getString(CategoryActivity.KEY_TITLE);
+        if (title != null) {
+            getActivity().setTitle(title);
+        }
     }
 }

@@ -1,4 +1,4 @@
-package com.example.complains.utils;
+package com.example.complains.utils.entities;
 
 import java.io.Serializable;
 

@@ -1,6 +1,4 @@
-package com.example.complains.utils;
-
-import com.example.complains.utils.categories.Action;
+package com.example.complains.utils.entities;
 
 import java.io.Serializable;
 import java.util.List;

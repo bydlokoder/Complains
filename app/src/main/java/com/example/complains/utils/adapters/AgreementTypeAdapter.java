@@ -17,7 +17,7 @@ import android.widget.TextView;
 
 import com.example.complains.R;
 import com.example.complains.fragments.ProblemFragment;
-import com.example.complains.utils.categories.AgreementType;
+import com.example.complains.utils.entities.AgreementType;
 
 import java.util.List;
 

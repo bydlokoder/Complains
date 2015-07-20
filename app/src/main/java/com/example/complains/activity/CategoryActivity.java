@@ -9,9 +9,9 @@ import android.view.MenuItem;
 
 import com.example.complains.R;
 import com.example.complains.fragments.AgreementFragment;
-import com.example.complains.utils.categories.Action;
-import com.example.complains.utils.categories.AgreementType;
-import com.example.complains.utils.categories.Problem;
+import com.example.complains.utils.entities.Action;
+import com.example.complains.utils.entities.AgreementType;
+import com.example.complains.utils.entities.Problem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,6 @@ import butterknife.ButterKnife;
 
 public class CategoryActivity extends AppCompatActivity {
     public static final String KEY_TITLE = "TITLE";
-
     @Bind(R.id.toolbar)
     Toolbar toolbar;
 
@@ -51,16 +50,13 @@ public class CategoryActivity extends AppCompatActivity {
         problemList.add(problem);
         typeList.add(new AgreementType(getString(R.string.title_purchase_agreement),
                 getString(R.string.link_purchase_agreement), problemList));
-        return typeList;
-    }
 
-    @Override
-    public void onAttachFragment(Fragment fragment) {
-        super.onAttachFragment(fragment);
-        String title = fragment.getArguments().getString(KEY_TITLE);
-        if (title != null) {
-            setTitle(title);
-        }
+        List<Action> actionList1 = new ArrayList<>();
+        actionList1.add(new Action(getString(R.string.title_action_new_deadline), getString(R.string.link_new_deadline), "2.doc"));
+        List<Problem> problemList1 = new ArrayList<>();
+        problemList1.add(new Problem(getString(R.string.title_expired_services), getString(R.string.link_expired), actionList1));
+        typeList.add(new AgreementType(getString(R.string.title_services), getString(R.string.link_services), problemList1));
+        return typeList;
     }
 
     private void setUpActionBar(Toolbar toolbar) {

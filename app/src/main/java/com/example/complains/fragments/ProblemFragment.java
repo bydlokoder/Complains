@@ -12,7 +12,7 @@ import android.view.ViewGroup;
 import com.example.complains.R;
 import com.example.complains.activity.CategoryActivity;
 import com.example.complains.utils.adapters.ProblemAdapter;
-import com.example.complains.utils.categories.Problem;
+import com.example.complains.utils.entities.Problem;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -33,6 +33,7 @@ public class ProblemFragment extends Fragment {
         llm.setOrientation(LinearLayoutManager.VERTICAL);
         recList.setLayoutManager(llm);
         recList.setAdapter(new ProblemAdapter(problemList, getActivity(), getFragmentManager()));
+        setTitle();
         return view;
     }
 
@@ -43,5 +44,12 @@ public class ProblemFragment extends Fragment {
         args.putSerializable(CategoryActivity.KEY_TITLE, title);
         fragment.setArguments(args);
         return fragment;
+    }
+
+    private void setTitle() {
+        String title = getArguments().getString(CategoryActivity.KEY_TITLE);
+        if (title != null) {
+            getActivity().setTitle(title);
+        }
     }
 }

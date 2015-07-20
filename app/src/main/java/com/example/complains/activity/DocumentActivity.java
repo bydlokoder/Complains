@@ -18,10 +18,10 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.complains.R;
-import com.example.complains.utils.Complain;
-import com.example.complains.utils.PlaceHolder;
+import com.example.complains.utils.entities.Complain;
+import com.example.complains.utils.entities.PlaceHolder;
 import com.example.complains.utils.WordDocument;
-import com.example.complains.utils.categories.Action;
+import com.example.complains.utils.entities.Action;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -62,7 +62,7 @@ public class DocumentActivity extends AppCompatActivity implements View.OnClickL
             if (b != null) {
                 action = (Action) b.getSerializable(DOCUMENT_KEY);
             } else {
-                finish(); // nothing to show
+                finish();
             }
             try {
                 InputStream inputStream = getAssets().open(action.getDocFileName());
@@ -70,11 +70,12 @@ public class DocumentActivity extends AppCompatActivity implements View.OnClickL
                 inputStream.close();
                 placeHolderList = wordDocument.getPlaceHolderList();
             } catch (IOException e) {
-                Snackbar.make(findViewById(android.R.id.content), getString(R.string.error_loading_doc)
-                        , Snackbar.LENGTH_LONG).show();
+                finish();
             }
         }
-        buildForms(layout, placeHolderList, this);
+        if (placeHolderList != null) {
+            buildForms(layout, placeHolderList, this);
+        }
     }
 
     @Override
@@ -86,6 +87,9 @@ public class DocumentActivity extends AppCompatActivity implements View.OnClickL
         outState.putSerializable(PLACEHOLDERS_KEY, (Serializable) placeHolderList);
     }
 
+    /**
+     * Method updates placeholders with answers in editTexts
+     */
     private void updatePlaceholders() {
         for (int i = 0; i < editTextList.size(); i++) {
             PlaceHolder placeHolder = placeHolderList.get(i);
@@ -94,6 +98,9 @@ public class DocumentActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    /**
+     * Method creates a form for each placeholder found in the doc file
+     */
     private void buildForms(ViewGroup layout, List<PlaceHolder> placeHolderList, Context context) {
         for (PlaceHolder placeHolder : placeHolderList) {
             View view = getView(placeHolder, context);
@@ -107,6 +114,10 @@ public class DocumentActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
+    /**
+     * Method creates a view for a placeholder with initialization that
+     * depends on placeholder's type
+     */
     private View getView(final PlaceHolder placeHolder, final Context context) {
         View view = View.inflate(context, R.layout.placheloder_text, null);
         final EditText editText = (EditText) view.findViewById(R.id.answer);
@@ -168,6 +179,9 @@ public class DocumentActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
+    /**
+     * Method checks each editText and setError message if editText is empty
+     */
     private boolean isDataValid() {
         boolean isValid = true;
         for (EditText editText : editTextList) {

@@ -2,6 +2,8 @@ package com.example.complains.utils;
 
 import android.widget.Filter;
 
+import com.example.complains.utils.entities.Complain;
+
 import java.util.List;
 
 //TODO
