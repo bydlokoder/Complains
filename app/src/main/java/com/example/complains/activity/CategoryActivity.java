@@ -41,7 +41,7 @@ public class CategoryActivity extends AppCompatActivity {
         List<AgreementType> typeList = new ArrayList<>();
         Action action = new Action(getString(R.string.title_action_return),
                 getString(R.string.link_return_unsuitable_good),
-                "1_RETURN.doc");
+                "1_Return_unsuitable_goods.doc");
         List<Action> actionList = new ArrayList<>();
         actionList.add(action);
         Problem problem = new Problem(getString(R.string.title_unsuitable_good),
@@ -52,7 +52,7 @@ public class CategoryActivity extends AppCompatActivity {
                 getString(R.string.link_purchase_agreement), problemList));
 
         List<Action> actionList1 = new ArrayList<>();
-        actionList1.add(new Action(getString(R.string.title_action_new_deadline), getString(R.string.link_new_deadline), "2.doc"));
+        actionList1.add(new Action(getString(R.string.title_action_new_deadline), getString(R.string.link_new_deadline), "8-pretenzia_o_novom_sroke_uslug.doc"));
         List<Problem> problemList1 = new ArrayList<>();
         problemList1.add(new Problem(getString(R.string.title_expired_services), getString(R.string.link_expired), actionList1));
         typeList.add(new AgreementType(getString(R.string.title_services), getString(R.string.link_services), problemList1));
