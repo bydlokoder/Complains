@@ -21,7 +21,7 @@
         <activity
             android:name=".activity.DocumentActivity"
             android:label="@string/title_activity_document"
-            android:windowSoftInputMode="adjustPan|adjustResize" />
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".activity.CategoryActivity">
 
         </activity>
