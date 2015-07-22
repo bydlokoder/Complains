@@ -79,10 +79,10 @@ public class MainActivity extends AppCompatActivity implements Drawer.OnDrawerIt
     private List<Complain> buildSamples() {
         List<Complain> complainList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
-            Action action = new Action(getString(R.string.title_action_return),
+            Action action = new Action(getString(R.string.title_unsuitable_good),
                     getString(R.string.link_return_unsuitable_good),
-                    "1_RETURN.doc");
-            Complain complain = new Complain("ОАО КОМПАНИЯ", action, new ArrayList<PlaceHolder>());
+                    "1_Return_unsuitable_goods.doc");
+            Complain complain = new Complain("ОАО РОМАШКА", action, new ArrayList<PlaceHolder>());
             complainList.add(complain);
         }
         return complainList;
