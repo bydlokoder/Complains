@@ -8,6 +8,8 @@
     <color name="secondary_text">#727272</color>
     <color name="text">#FFFFFF</color>
     <color name="divider">#B6B6B6</color>
+
+    <color name="control_highlight">#FF835b</color> <!--26% of accent-->
     <color name="button_pressed">#ffff5232</color>
     <color name="button_selected">#ffff5c14</color>
 </resources>

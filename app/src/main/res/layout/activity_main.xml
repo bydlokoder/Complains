@@ -32,10 +32,11 @@
                 android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:src="@drawable/ic_action_add"
                 app:borderWidth="0dp"
-                app:fabSize="normal" />
+                app:elevation="6dp"
+                app:fabSize="normal"
+                app:pressedTranslationZ="12dp" />
         </FrameLayout>
 
     </RelativeLayout>
-
 
 </RelativeLayout>

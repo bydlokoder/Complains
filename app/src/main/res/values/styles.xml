@@ -16,6 +16,8 @@
         <item name="android:divider">@color/divider</item>
 
         <item name="windowActionModeOverlay">true</item>
+
+        <item name="colorControlHighlight">@color/control_highlight</item>
     </style>
 
 </resources>
